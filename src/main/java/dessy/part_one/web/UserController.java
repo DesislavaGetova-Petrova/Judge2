@@ -91,5 +91,10 @@ public class UserController<httpSession> {
         }
         return"redirect:login";
     }
+    @GetMapping("/logout")
+    public String logout(){
+        userService.lodout();
+        return "redirect:/";
+    }
 
 }

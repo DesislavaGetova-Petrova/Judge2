@@ -54,4 +54,11 @@ public class UserServiceImpl implements UserService {
                 .setUsername(userServiceModel.getUsername())
                 .setRole(userServiceModel.getRole().getName());
     }
+
+    @Override
+    public void lodout() {
+        currentUser.setId(null)
+                .setUsername(null)
+                .setRole(null);
+    }
 }
