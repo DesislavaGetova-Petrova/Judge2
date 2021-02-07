@@ -29,7 +29,7 @@ public class Exercise extends BaseEntity{
         return startedOn;
     }
 
-    public void setStartedOn(LocalDateTime staetedOn) {
+    public void setStartedOn(LocalDateTime startedOn) {
         this.startedOn = startedOn;
     }
     @Column(name="due_date",nullable = false)
