@@ -10,6 +10,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
@@ -60,5 +62,19 @@ public class UserServiceImpl implements UserService {
         currentUser.setId(null)
                 .setUsername(null)
                 .setRole(null);
+    }
+
+    @Override
+    public List<String> findAllUserNames() {
+        return this.userRepository.findAllUserNames();
+    }
+
+    @Override
+    public void changeRole(String username, String role) {
+        User user = userRepository.findByUsername(username).orElse(null);
+        if(user.getRole().getName()!=role){
+            user.setRole(roleService.findRoleByName(role));
+            userRepository.save(user);
+        }
     }
 }

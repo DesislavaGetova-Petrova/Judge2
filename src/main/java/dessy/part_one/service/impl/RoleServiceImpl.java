@@ -38,4 +38,9 @@ private final ModelMapper modelMapper;
                 .map(role -> this.modelMapper.map(role,RoleServiceModel.class))
                 .orElse(null);
     }
+    @Override
+    public Role findRoleByName(String name) {
+        return this.roleRepository.findByName(name).orElse(null);
+
+    }
 }
