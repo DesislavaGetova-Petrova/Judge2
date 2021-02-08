@@ -21,10 +21,11 @@
                 </div>
                 <div class="row mt-4 tm-edit-product-row ">
                     <div class="col-xl-7 col-lg-7 col-md-12">
-                        <form action="#" method="" class="tm-edit-product-form">
-                            
+                        <form action="/homework/add" method="POST"
+                              th:object="${homeworkBindingModel}"
+                              class="tm-edit-product-form">
                                 <div class="input-group mb-3">
-                                    <h1>You late</h1>
+                                    <h1 th:if="${isLate}" class="text-danger">You late</h1>
                                 </div>
                             
                             <div class="input-group mb-3">
@@ -32,11 +33,8 @@
                                 <select class="custom-select col-xl-9 col-lg-8 col-md-8 col-sm-7" id="exercise"
                                         name="exercise">
                                     <option value="" selected>Select exercise</option>
-                        
-                                        <option>Exercise One</option>
-										<option>Exercise Two</option>
-										<option>Exercise Three</option>
-										<option>Exercise Four</option>
+                                        <option th:each="e:${exNames}" th:text="${e}" th:value="${e}">Exercise One</option>
+
                                     
                                 </select>
                             </div>
@@ -44,11 +42,11 @@
                                 <label for="gitAddress" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">
                                     Github address
                                 </label>
-                                <input id="gitAddress" name="gitAddress" type="text"
+                                <input th:field="*{gitAddress}" th:errorclass="bg-danger" id="gitAddress" name="gitAddress" type="text"
                                        class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
                             </div>
 									
-                                <small class="text-danger" >Invalid github address</small>
+                                <small th:if="${#fields.hasErrors('gitAddress')}" th:errors="*{gitAddress}" class="text-danger" >Invalid github address</small>
                             
 
                             <div class="input-group mb-3">

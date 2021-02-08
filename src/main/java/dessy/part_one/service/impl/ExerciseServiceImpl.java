@@ -7,6 +7,9 @@ import dessy.part_one.service.ExerciseService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Service
 public class ExerciseServiceImpl implements ExerciseService {
     private final ExerciseRepository exerciseRepository;
@@ -21,5 +24,21 @@ public class ExerciseServiceImpl implements ExerciseService {
     public void addExercise(ExerciseServiceModel exerciseServiceModel) {
         exerciseRepository.save(modelMapper.map(exerciseServiceModel, Exercise.class));
 
+    }
+
+    @Override
+    public List<String> findAllNames() {
+        return exerciseRepository.findAllExNames();
+    }
+
+    @Override
+    public boolean check(String exercise) {
+        Exercise exerciseEntiry=exerciseRepository.findByName(exercise).orElse(null);
+            return exerciseEntiry.getDueDate().isBefore(LocalDateTime.now());
+    }
+
+    @Override
+    public Exercise findByName(String name) {
+        return exerciseRepository.findByName(name).orElse(null);
     }
 }
